@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>數字轉換挑戰</title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        #result {
+            margin-top: 15px;
+            font-size: 1.2em;
+            font-weight: bold;
+            min-height: 25px;
+        }
+
+        #question {
+            margin-top: 20px;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        #guess-input {
+            padding: 8px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-right: 5px;
+        }
+
+        #guess-button {
+            padding: 8px 15px;
+            font-size: 1em;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #guess-button:hover {
+            background-color: #0056b3;
+        }
+
+        #recaptcha-container {
+            display: none;
+            margin-top: 20px;
+        }
+
+        #youtube-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>數字轉換挑戰</h1>
+        <p id="instruction"></p>
+        <p id="question"></p>
+        <input type="text" id="guess-input">
+        <button id="guess-button">猜猜看</button>
+        <div id="recaptcha-container">
+            <div class="g-recaptcha" data-sitekey="6Le-wvkSAAAAAPBMRTvw0Q4Muexq9bi0DJwx_mJ-" data-callback="checkGuess"></div>
+        </div>
+        <p id="result">---</p>
+    </div>
+
+    <div id="video-container"></div>
+
+    <script>
+        const instructionParagraph = document.getElementById('instruction');
+        const questionParagraph = document.getElementById('question');
+        const guessInput = document.getElementById('guess-input');
+        const guessButton = document.getElementById('guess-button');
+        const resultParagraph = document.getElementById('result');
+        const recaptchaContainer = document.getElementById('recaptcha-container');
+
+        let targetNumber;
+        let isBinaryToDecimal;
+
+        // 生成新的題目
+        function generateQuestion() {
+            targetNumber = Math.floor(Math.random() * (255 - 16 + 1)) + 16;
+            isBinaryToDecimal = Math.random() < 0.5;
+
+            if (isBinaryToDecimal) {
+                const binaryString = targetNumber.toString(2);
+                instructionParagraph.textContent = "請將以下二進位數字轉換成十進位：";
+                questionParagraph.textContent = binaryString;
+                guessInput.type = 'number';
+            } else {
+                instructionParagraph.textContent = "請將以下十進位數字轉換成二進位：";
+                questionParagraph.textContent = targetNumber;
+                guessInput.type = 'text';
+            }
+            // 清空輸入框
+            guessInput.value = '';
+        }
+
+        // 頁面載入時先生成一題
+        window.onload = generateQuestion;
+
+        // 當點擊「猜猜看」按鈕時觸發
+        guessButton.addEventListener('click', () => {
+            recaptchaContainer.style.display = 'block';
+            resultParagraph.textContent = "請完成 reCAPTCHA 驗證";
+            guessButton.disabled = true;
+            grecaptcha.render('recaptcha-container', {
+                'sitekey': '6Le-wvkSAAAAAPBMRTvw0Q4Muexq9bi0DJwx_mJ-',
+                'callback': checkGuess
+            });
+        });
+
+        // reCAPTCHA 驗證成功
+        function checkGuess() {
+            recaptchaContainer.style.display = 'none';
+            guessButton.disabled = false;
+
+            let guess;
+            let isCorrect;
+
+            if (isBinaryToDecimal) {
+                guess = parseInt(guessInput.value, 10);
+                isCorrect = guess === targetNumber;
+            } else {
+                guess = guessInput.value.replace(/[^01]/g, '');
+                isCorrect = guess === targetNumber.toString(2);
+            }
+
+            if (isCorrect) {
+                resultParagraph.textContent = "恭喜你，答對了！🎉";
+                playRickRoll();
+            } else {
+                resultParagraph.textContent = "答案不正確，請再試一次。";
+            }
+
+            grecaptcha.reset();
+        }
+
+        // Never Gonna Give You Up
+        function playRickRoll() {
+            const videoContainer = document.getElementById('video-container');
+            if (videoContainer.querySelector('iframe')) {
+                return;
+            }
+            const videoId = 'dQw4w9WgXcQ';
+            const embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=0&loop=1&playsinline=1&allowfullscreen=1&playlist=${videoId}`;
+
+            const iframe = document.createElement('iframe');
+            iframe.setAttribute('id', 'youtube-background');
+            iframe.setAttribute('src', embedUrl);
+            iframe.setAttribute('title', 'YouTube video player');
+            iframe.setAttribute('frameborder', '0');
+            iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+            iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+            iframe.setAttribute('allowfullscreen', 'true');
+
+            videoContainer.appendChild(iframe);
+        }
+    </script>
+</body>
+</html>
