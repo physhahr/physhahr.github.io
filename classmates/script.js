@@ -384,12 +384,6 @@ submitAnswerBtn.addEventListener("click", async ()=>{
   loadQuestion();
 });
 
-giveUpBtn.addEventListener("click", ()=>{
-  // 單題跳過（不記錄成績）
-  qIndex++;
-  loadQuestion();
-});
-
 async function finishGame(){
   const usedSec = Math.round((Date.now() - startTime) / 1000);
   gameArea.classList.add("hidden");
