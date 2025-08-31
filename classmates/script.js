@@ -66,6 +66,7 @@ const gameArea = document.getElementById("gameArea");
 const gamePrompt = document.getElementById("gamePrompt");
 const answerArea = document.getElementById("answerArea");
 const submitAnswerBtn = document.getElementById("submitAnswer");
+const giveUpBtn = document.getElementById("giveUp");
 const resultArea = document.getElementById("resultArea");
 const lb1 = document.getElementById("lb1");
 const lb2 = document.getElementById("lb2");
@@ -74,7 +75,7 @@ const lb2 = document.getElementById("lb2");
    init welcome selects
    ======================= */
 function initWelcomeSelects() {
-  Numbers.forEach((s, i) => {
+  seatNumbers.forEach((s, i) => {
     const o = document.createElement("option"); o.value = i; o.textContent = s; seatSelect.appendChild(o);
   });
   studentNames.forEach((n, i) => {
