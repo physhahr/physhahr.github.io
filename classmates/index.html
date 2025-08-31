@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>大安電機 117 乙 猜猜窩是誰</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Step 1: Welcome -->
+    <section id="step1" class="step">
+      <h2>Welcome</h2>
+      <label for="studentSelect">請選擇你的名字：</label>
+      <select id="studentSelect"></select>
+      <button id="goToStep2">下一步</button>
+    </section>
+
+    <!-- Step 2: 自我介紹 -->
+    <section id="step2" class="step hidden">
+      <h2>讓同學認識你</h2>
+      <form id="introForm">
+        <label>暱稱<input type="text" id="nickname"></label><br>
+        <label>生日<input type="date" id="birthday"></label><br>
+        <label>討厭/困惑<textarea id="dislike"></textarea></label><br>
+        <label>喜歡/擅長<textarea id="like"></textarea></label><br>
+        <label>我的三個關鍵字<input type="text" id="keywords" placeholder="用逗號分隔"></label><br>
+        <label>IG<input type="text" id="ig"></label><br>
+        <label>備註<textarea id="note"></textarea></label><br>
+        <button type="submit">儲存並開始遊戲</button>
+      </form>
+    </section>
+
+    <!-- Step 3: 猜猜我是誰 -->
+    <section id="step3" class="step hidden">
+      <h2>猜猜我是誰</h2>
+      <div>
+        <button onclick="startGame(1)">玩法一：名字 → 座號</button>
+        <button onclick="startGame(2)">玩法二：座號 → 名字</button>
+        <button onclick="startGame(3)">玩法三：自介 → 選 座號+名字</button>
+      </div>
+
+      <div id="gameArea" class="hidden">
+        <div id="gamePrompt"></div>
+        <img id="gameImage" width="240" height="240" alt="同學頭像">
+        <div id="answerArea"></div>
+        <button id="submitAnswer">送出答案</button>
+      </div>
+
+      <div id="resultArea" class="hidden"></div>
+    </section>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
