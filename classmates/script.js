@@ -309,7 +309,7 @@ async function loadQuestion(){
 
   let tip = "";
   if (currentGame === 1) {
-    tip = `名字提示：${seat} ${name}` + (intro && (intro.like||intro.dislike||intro.keywords) ? `\n\n（自介：${intro.like||intro.dislike||intro.keywords}）` : "");
+    tip = `名字提示：${name}` + (intro && (intro.like||intro.dislike||intro.keywords) ? `\n\n（自介：${intro.like||intro.dislike||intro.keywords}）` : "");
   } else if (currentGame === 2) {
     tip = `座號提示：${seat}` + (intro && (intro.like||intro.dislike||intro.keywords) ? `\n\n（自介：${intro.like||intro.dislike||intro.keywords}）` : "");
   } else {
