@@ -75,36 +75,6 @@ const resultArea = document.getElementById("resultArea");
 const lb1 = document.getElementById("lb1");
 const lb2 = document.getElementById("lb2");
 
-async function login(userId) {
-  const db = getDatabase();
-  const snapshot = await get(ref(db, `students/${userId}`));
-
-  if (!snapshot.exists()) {
-    throw new Error("帳號不存在");
-  }
-
-  const userData = snapshot.val();
-
-  if (userId === "00") {
-    // 跳過個人資料設定
-    return { ...userData, skipProfile: true, canSaveScores: false };
-  } else {
-    // 進入正常流程
-    return { ...userData, skipProfile: false, canSaveScores: true };
-  }
-}
-
-async function saveScore(userId, subject, score) {
-  const db = getDatabase();
-
-  if (userId === "00") {
-    alert("班導帳號無法儲存成績");
-    return;
-  }
-
-  await set(ref(db, `students/${userId}/scores/${subject}`), score);
-}
-
 /* =======================
    init welcome selects
    ======================= */
