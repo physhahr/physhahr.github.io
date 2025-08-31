@@ -5,6 +5,8 @@ import {
   orderByChild, limitToFirst, onValue, update
 } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-database.js";
 
+import { getDatabase, ref, get, set } from "firebase/database";
+
 /* =======================
    0) Firebase 設定 (請替換為你自己的設定)
    ======================= */
@@ -27,6 +29,7 @@ const db = getDatabase(app);
    1) 座號與姓名兩個清單（互相對應）
    ======================= */
 const seatNumbers = [
+  "00",
   "01","02","03","04","05","06","07","08","09","10",
   "11","12","13","14","15","16","17","18","19","20",
   "21","22","23","24","25","26","27","28","29","30",
@@ -34,6 +37,7 @@ const seatNumbers = [
 ];
 
 const studentNames = [
+  "陳新秀",
   "余有容","吳羽涵","吳婕寧","呂若妘","徐海娜","翁芷妍","黃于瑄","王翊丞","丘昊永","李芮安",
   "李德謙","林智鈞","張宬睿","張凱鈞","張瀚元","許博安","連奕愷","郭桓睿","陳之一","陳光俊",
   "陳君岳","陳廷亮","陳邑翰","陳雍澄","傅裕家","馮又仁","黃雋凱","廖奕翔","蔡臣訓","蔡鼎棋",
@@ -70,6 +74,36 @@ const giveUpBtn = document.getElementById("giveUp");
 const resultArea = document.getElementById("resultArea");
 const lb1 = document.getElementById("lb1");
 const lb2 = document.getElementById("lb2");
+
+async function login(userId) {
+  const db = getDatabase();
+  const snapshot = await get(ref(db, `students/${userId}`));
+
+  if (!snapshot.exists()) {
+    throw new Error("帳號不存在");
+  }
+
+  const userData = snapshot.val();
+
+  if (userId === "00") {
+    // 跳過個人資料設定
+    return { ...userData, skipProfile: true, canSaveScores: false };
+  } else {
+    // 進入正常流程
+    return { ...userData, skipProfile: false, canSaveScores: true };
+  }
+}
+
+async function saveScore(userId, subject, score) {
+  const db = getDatabase();
+
+  if (userId === "00") {
+    alert("班導帳號無法儲存成績");
+    return;
+  }
+
+  await set(ref(db, `students/${userId}/scores/${subject}`), score);
+}
 
 /* =======================
    init welcome selects
