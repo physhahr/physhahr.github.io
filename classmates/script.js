@@ -5,8 +5,6 @@ import {
   orderByChild, limitToFirst, onValue, update
 } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-database.js";
 
-import { getDatabase, ref, get, set } from "firebase/database";
-
 /* =======================
    0) Firebase 設定 (請替換為你自己的設定)
    ======================= */
