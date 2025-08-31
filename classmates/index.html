@@ -7,6 +7,7 @@
 </head>
 <body>
   <div id="app">
+
     <!-- Step 1: Welcome -->
     <section id="step1" class="step">
       <h2>Welcome</h2>
@@ -19,24 +20,45 @@
     <section id="step2" class="step hidden">
       <h2>讓同學認識你</h2>
       <form id="introForm">
-        <label>暱稱<input type="text" id="nickname"></label><br>
-        <label>生日<input type="date" id="birthday"></label><br>
-        <label>討厭/困惑<textarea id="dislike"></textarea></label><br>
-        <label>喜歡/擅長<textarea id="like"></textarea></label><br>
-        <label>我的三個關鍵字<input type="text" id="keywords" placeholder="用逗號分隔"></label><br>
-        <label>IG<input type="text" id="ig"></label><br>
-        <label>備註<textarea id="note"></textarea></label><br>
+        <div class="form-group">
+          <label>暱稱 (選填)</label>
+          <input type="text" id="nickname">
+        </div>
+        <div class="form-group">
+          <label>生日 (yyyy/mm/dd)</label>
+          <input type="date" id="birthday">
+        </div>
+        <div class="form-group required">
+          <label>討厭/困惑</label>
+          <textarea id="dislike"></textarea>
+        </div>
+        <div class="form-group required">
+          <label>喜歡/擅長</label>
+          <textarea id="like"></textarea>
+        </div>
+        <div class="form-group required">
+          <label>我的三個關鍵字</label>
+          <input type="text" id="keywords" placeholder="三個關鍵字">
+        </div>
+        <div class="form-group">
+          <label>IG (選填)</label>
+          <input type="text" id="ig" placeholder="@username">
+        </div>
+        <div class="form-group">
+          <label>備註 (選填)</label>
+          <textarea id="note"></textarea>
+        </div>
         <button type="submit">儲存並開始遊戲</button>
       </form>
     </section>
 
-    <!-- Step 3: 猜猜我是誰 -->
+    <!-- Step 3: 猜猜窩是誰 -->
     <section id="step3" class="step hidden">
-      <h2>猜猜我是誰</h2>
-      <div>
+      <h2>猜猜窩是誰</h2>
+      <div id="modeSelect">
         <button onclick="startGame(1)">玩法一：名字 → 座號</button>
         <button onclick="startGame(2)">玩法二：座號 → 名字</button>
-        <button onclick="startGame(3)">玩法三：自介 → 選 座號+名字</button>
+        <button onclick="startGame(3)">玩法三：自介 → 選名字</button>
       </div>
 
       <div id="gameArea" class="hidden">
@@ -48,6 +70,7 @@
 
       <div id="resultArea" class="hidden"></div>
     </section>
+
   </div>
   <script src="script.js"></script>
 </body>
