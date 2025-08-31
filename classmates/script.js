@@ -9,14 +9,13 @@ import {
    0) Firebase 設定 (請替換為你自己的設定)
    ======================= */
 const firebaseConfig = {
-  apiKey: "AIzaSyCgDcftkWaQu8tcdqKhog_Omzmlc6aXwDQ",
-  authDomain: "classmates-a4344.firebaseapp.com",
-  databaseURL: "https://classmates-a4344-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "classmates-a4344",
-  storageBucket: "classmates-a4344.firebasestorage.app",
-  messagingSenderId: "817844262053",
-  appId: "1:817844262053:web:55864c83761ea006f4294c",
-  measurementId: "G-VL3ESY2XJ3"
+  apiKey: "REPLACE_ME",
+  authDomain: "REPLACE_ME.firebaseapp.com",
+  databaseURL: "https://REPLACE_ME-default-rtdb.firebaseio.com",
+  projectId: "REPLACE_ME",
+  storageBucket: "REPLACE_ME.appspot.com",
+  messagingSenderId: "REPLACE_ME",
+  appId: "REPLACE_ME"
 };
 
 // 初始化 Firebase
@@ -66,7 +65,6 @@ const gameArea = document.getElementById("gameArea");
 const gamePrompt = document.getElementById("gamePrompt");
 const answerArea = document.getElementById("answerArea");
 const submitAnswerBtn = document.getElementById("submitAnswer");
-const giveUpBtn = document.getElementById("giveUp");
 const resultArea = document.getElementById("resultArea");
 const lb1 = document.getElementById("lb1");
 const lb2 = document.getElementById("lb2");
@@ -309,7 +307,7 @@ async function loadQuestion(){
 
   let tip = "";
   if (currentGame === 1) {
-    tip = `名字提示：${name}` + (intro && (intro.like||intro.dislike||intro.keywords) ? `\n\n（自介：${intro.like||intro.dislike||intro.keywords}）` : "");
+    tip = `名字提示：${seat} ${name}` + (intro && (intro.like||intro.dislike||intro.keywords) ? `\n\n（自介：${intro.like||intro.dislike||intro.keywords}）` : "");
   } else if (currentGame === 2) {
     tip = `座號提示：${seat}` + (intro && (intro.like||intro.dislike||intro.keywords) ? `\n\n（自介：${intro.like||intro.dislike||intro.keywords}）` : "");
   } else {
