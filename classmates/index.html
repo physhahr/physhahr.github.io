@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
   <title>大安電機 117 乙｜猜猜窩是誰</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link href="style.css" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div id="app">
-
-    <!-- Step 1: Welcome -->
+    <!-- Step1 -->
     <section id="step1" class="step card">
       <h2 class="title">Welcome</h2>
       <p class="subtitle">請先選擇你是誰</p>
@@ -24,62 +23,60 @@
       <button id="goToStep2" class="btn">下一步</button>
     </section>
 
-    <!-- Step 2: 自我介紹 -->
+    <!-- Step2 -->
     <section id="step2" class="step card hidden">
       <h2 class="title">讓同學認識你</h2>
       <form id="introForm" novalidate>
         <div class="row">
           <label class="label">暱稱（選填）</label>
-          <input type="text" id="nickname" class="input" />
+          <input id="nickname" class="input" type="text" />
         </div>
 
         <div class="row">
           <label class="label">生日（yyyy/mm/dd）</label>
-          <input type="text" id="birthday" class="input" placeholder="例如：1989/06/04" />
+          <input id="birthday" class="input" type="text" placeholder="例如：2009/03/14" />
           <small class="hint">格式需為 yyyy/mm/dd；選填</small>
         </div>
 
         <div class="row required">
           <label class="label">討厭／困惑（必填）</label>
-          <textarea id="dislike" class="input textarea" rows="3" placeholder="寫下你討厭或困惑的事…"></textarea>
+          <textarea id="dislike" class="input textarea" rows="3"></textarea>
         </div>
 
         <div class="row required">
           <label class="label">喜歡／擅長（必填）</label>
-          <textarea id="like" class="input textarea" rows="3" placeholder="寫下你喜歡或擅長的事…"></textarea>
+          <textarea id="like" class="input textarea" rows="3"></textarea>
         </div>
 
         <div class="row required">
-          <label class="label">的三個關鍵字（必填）</label>
-          <input type="text" id="keywords" class="input" placeholder="三個關鍵字，不強制逗號分隔" />
+          <label class="label">我的三個關鍵字（必填）</label>
+          <input id="keywords" class="input" type="text" placeholder="三個關鍵字（格式不拘）" />
         </div>
 
         <div class="row">
           <label class="label">IG（選填）</label>
-          <input type="text" id="ig" class="input" placeholder="@username" />
+          <input id="ig" class="input" type="text" placeholder="@username" />
         </div>
 
         <div class="row">
           <label class="label">備註（選填）</label>
-          <textarea id="note" class="input textarea" rows="3" placeholder="任何想說的話…"></textarea>
+          <textarea id="note" class="input textarea" rows="3"></textarea>
         </div>
 
         <button type="submit" class="btn">儲存並開始遊戲</button>
       </form>
     </section>
 
-    <!-- Step 3: 猜猜窩是誰 -->
+    <!-- Step3 -->
     <section id="step3" class="step card hidden">
       <h2 class="title">猜猜窩是誰</h2>
 
-      <!-- 玩法選擇（會在沉浸式時隱藏） -->
       <div id="modeSelect" class="mode-select">
         <button class="btn ghost" data-mode="1">玩法一：名字 → 座號</button>
         <button class="btn ghost" data-mode="2">玩法二：座號 → 名字</button>
         <button class="btn ghost" data-mode="3">玩法三：自介 → 選座號+名字</button>
       </div>
 
-      <!-- 遊戲區（沉浸式） -->
       <div id="gameArea" class="game hidden">
         <div id="gamePrompt" class="prompt"></div>
 
@@ -91,13 +88,25 @@
 
         <div id="answerArea" class="answer"></div>
 
-        <button id="submitAnswer" class="btn primary">送出答案</button>
+        <div style="display:flex; gap:12px; justify-content:center; margin-top:12px;">
+          <button id="submitAnswer" class="btn primary">送出答案</button>
+          <button id="giveUp" class="btn ghost" title="跳過（不紀錄成績）">跳過題目</button>
+        </div>
       </div>
 
       <div id="resultArea" class="result hidden"></div>
+
+      <div id="leaderboardBlock" class="card" style="margin-top:16px;">
+        <h3>排行榜（玩法一 / 玩法二 各前5）</h3>
+        <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center;">
+          <div id="lb1" class="lb"></div>
+          <div id="lb2" class="lb"></div>
+        </div>
+      </div>
     </section>
   </div>
 
-  <script src="script.js"></script>
+  <!-- 將 script 設為 module (使用 Firebase v11 modular SDK) -->
+  <script type="module" src="script.js"></script>
 </body>
 </html>
